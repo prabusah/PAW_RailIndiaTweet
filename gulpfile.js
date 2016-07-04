@@ -13,10 +13,7 @@ var paths = {
   'node_modules/jquery/dist/*.js', 'node_modules/typeahead.js/dist/typeahead.bundle.min.js'],
 };
 var customJSPath = {
-  customScripts: ['static/assets/js/common-spin.js']
-};
-var customCSSPath = {
-  customCSS: ['static/assets/css/inline.css']
+  customScripts: ['static/assets/js/common.js']
 };
 gulp.task('js', function() {
     var jsFilter = gulpFilter('*min.js');
@@ -32,21 +29,11 @@ gulp.task('css', function() {
     .pipe(cssFilter)
     .pipe(gulp.dest(dest_path + '/css/'));
 });
-gulp.task('concat', function() {
-  return gulp.src(['static/assets/js/common.js', 'static/assets/js/spin.min.js'])
-    .pipe(concat('common-spin.js'))
-    .pipe(gulp.dest(dest_path + '/js/'));
-});
 gulp.task('compressJS', function() {
      return gulp.src(customJSPath.customScripts)
     .pipe(minify({ignoreFiles: ['*min.js', '*.css']}))
     .pipe(gulp.dest(dest_path + '/js/'));
 });
-gulp.task('compressCSS', function() {
-  return gulp.src(customCSSPath.customCSS)
-    .pipe(minifyCss({compatibility: 'ie8'}))
-    .pipe(gulp.dest(dest_path + '/css/'));
-});
 
 
-gulp.task('default', ['concat', 'js', 'css', 'compressJS', 'compressCSS']);
+gulp.task('default', ['js', 'css', 'compressJS']);

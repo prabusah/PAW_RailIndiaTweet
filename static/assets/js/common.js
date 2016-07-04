@@ -49,49 +49,34 @@ $(document).ready(function(){
 
 	$("#tweetButton").click(function() {
 		if($('#ministry').val() === undefined || $('#ministry').val() === "") return;
- 		//window.open("twitter://post?message="+encodeURIComponent($("#tweetContent").val()), "myWindow", "width=200,height=100"); 
  		var url = "twitter://post?message="+encodeURIComponent($("#tweetContent").val());
- 		var intent_url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent($("#tweetContent").val());
+ 		var deep_url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent($("#tweetContent").val());
 
  		get(url).then(function(response) {
   			console.log("Success!", response);
   			window.open(url, "myWindow", "width=200,height=100"); 
 		}, function(error) {
 		  	console.error("Failed!", error);
-		  	window.open(intent_url, "myWindow", "width=200,height=100"); 
+		  	window.open(deep_url, "myWindow", "width=200,height=100"); 
 		});
-
- 		//var myWindow = window.open("twitter://post?message="+encodeURIComponent($("#tweetContent").val()), "myWindow", "width=200,height=100");   // Opens a new window   
-    	//myWindow.close();
     });
 
     function get(url) {
-	  // Return a new promise.
 	  return new Promise(function(resolve, reject) {
-	    // Do the usual XHR stuff
 	    var req = new XMLHttpRequest();
 	    req.open('GET', url);
 
 	    req.onload = function() {
-	      // This is called even on 404 etc
-	      // so check the status
 	      if (req.status == 200) {
-	        // Resolve the promise with the response text
 	        resolve(req.response);
 	      }
 	      else {
-	        // Otherwise reject with the status text
-	        // which will hopefully be a meaningful error
 	        reject(Error(req.statusText));
 	      }
 	    };
-
-	    // Handle network errors
 	    req.onerror = function() {
 	      reject(Error("Network Error"));
 	    };
-
-	    // Make the request
 	    req.send();
 	  });
 	}
@@ -108,11 +93,11 @@ var ministries = [
 	},
 	"Eastern": {
 		"gm": "@EasternRailway",
-		"drms": [{"city": "Sealdah", "handle": "@drmsdah"}, {"city": "Howrah", "handle": "@drmhowrah"}, {"city": "Malda", "handle": "@drmmalda"}]
+		"drms": [{"city": "Sealdah", "handle": "@drmsdah"}, {"city": "Howrah", "handle": "@drmhowrah"}, {"city": "Malda", "handle": "@drmmalda"}, {"city": "Asansol", "handle": "@DRM_ASN"}]
 	},
 	"East Central": {
 		"gm": "@GM_ECRly",
-		"drms": [{"city": "Danapur", "handle": "@DrmDnr"}, {"city": "Howrah", "handle": "@Dhanbad"}, {"city": "Mugalsarai", "handle": "@drmmgs"}, {"city": "Sonpur", "handle": "@spjdivn"}, {"city": "Samastipur", "handle": "@drmsee1"}]
+		"drms": [{"city": "Danapur", "handle": "@DrmDnr"}, {"city": "Dhanbad", "handle": "@drmdhnecr"}, {"city": "Mugalsarai", "handle": "@drmmgs"}, {"city": "Sonpur", "handle": "@drmsee1"}, {"city": "Samastipur", "handle": "@spjdivn"}]
 	},
 	"East Coast": {
 		"gm": "@gmeastcoastrly",
@@ -120,7 +105,7 @@ var ministries = [
 	},
 	"Northern": {
 		"gm": "@GM_NRly",
-		"drms": [{"city": "Moradabad", "handle": "@drm_moradabad"}, {"city": "Firozpur", "handle": "@firozpur_nrly"}, {"city": "Lucknow", "handle": "@drmlko25"}, {"city": "Delhi", "handle": "@drmdli"}, {"city": "Malda", "handle": "@drmumb****"}]
+		"drms": [{"city": "Moradabad", "handle": "@drm_moradabad"}, {"city": "Firozpur", "handle": "@firozpur_nrly"}, {"city": "Lucknow", "handle": "@drmlko25"}, {"city": "Delhi", "handle": "@drmdelhi"}, {"city": "Ambala", "handle": "@drmumb"}]
 	},
 	"North Central": {
 		"gm": "@GMNCR1",
@@ -128,23 +113,23 @@ var ministries = [
 	},
 	"North Eastern": {
 		"gm": "@gmner_gkp",
-		"drms": [{"city": "Izzatnagar", "handle": "@drm_drmizn"}, {"city": "Varanasi", "handle": "@drmbsbner****"}, {"city": "Lucknow", "handle": "@drmljn****"}]
+		"drms": [{"city": "Izzatnagar", "handle": "@drm_drmizn"}, {"city": "Varanasi", "handle": "@drmbsbner"}, {"city": "Lucknow", "handle": "@drmljn"}]
 	},
 	"Northeast Frontier": {
 		"gm": "@gm_nfr",
-		"drms": [{"city": "Katihar", "handle": "@kirDrm"}, {"city": "Alipurduar", "handle": "@drm_apdj"}, {"city": "Rangiya", "handle": "@DRM_RNY"}, {"city": "Tinsukhia", "handle": "@Drm_tsk"}]
+		"drms": [{"city": "Katihar", "handle": "@DRM_KIR"}, {"city": "Alipurduar", "handle": "@drm_apdj"}, {"city": "Rangiya", "handle": "@DRM_RNY"}, {"city": "Tinsukhia", "handle": "@Drm_tsk"}, {"city": "Lumding", "handle": "@drmnfr-lmg"}]
 	},
-	"Northeast Western": {
+	"North Western": {
 		"gm": "@GMNWRailway",
 		"drms": [{"city": "Jaipur", "handle": "@DRMJaipur"}, {"city": "Jodhpur", "handle": "@DRMJodhpurNWR"}, {"city": "Bikaner", "handle": "@drmbikaner"}, {"city": "Ajmer", "handle": "@DRMAjmer"}]
 	},
 	"Southern": {
 		"gm": "@GMSRailway",
-		"drms": [{"city": "Chennai", "handle": "@Drmchennai"}, {"city": "Trivendrum", "handle": "@TVC138"}, {"city": "Salem", "handle": "@SalemDRM"}, {"city": "Madurai", "handle": "@drmmadurai"}, {"city": "Palghat", "handle": "@propgt14"}, {"city": "Trichy", "handle": "@Drmtpj"}]
+		"drms": [{"city": "Chennai", "handle": "@Drmchennai"}, {"city": "Trivendrum", "handle": "@TVC138"}, {"city": "Salem", "handle": "@SalemDRM"}, {"city": "Madurai", "handle": "@drmmadurai"}, {"city": "Palghat", "handle": "@propgt14"}, {"city": "Trichchirappalli", "handle": "@Drmtpj"}]
 	},
 	"South Central": {
 		"gm": "@Gmscrailway",
-		"drms": [{"city": "Secunderabad", "handle": "@drmsecunderabad"}, {"city": "Hyderabad", "handle": "@drmhyb"}, {"city": "Vijaywada", "handle": "@drmvijayawada"}, {"city": "Guntakal", "handle": "@drmgnt"}, {"city": "Nanded", "handle": "@drmned"}]
+		"drms": [{"city": "Secunderabad", "handle": "@drmsecunderabad"}, {"city": "Hyderabad", "handle": "@drmhyb"}, {"city": "Vijaywada", "handle": "@drmvijayawada"}, {"city": "Guntakal", "handle": "@drmgti"}, {"city": "Nanded", "handle": "@drmned"}, {"city": "Guntur", "handle": "@drmgnt"}]
 	},
 	"South Eastern": {
 		"gm": "@GMSERAILWAY",
@@ -156,7 +141,7 @@ var ministries = [
 	},
 	"South Western": {
 		"gm": "@gmswr",
-		"drms": [{"city": "Hubli", "handle": "@DRMUBL"}, {"city": "Bengaluru", "handle": "@DRMSBC"}, {"city": "Mysore", "handle": "@Mysore"}]
+		"drms": [{"city": "Hubli", "handle": "@DRMUBL"}, {"city": "Bengaluru", "handle": "@DRMSBC"}, {"city": "Mysore", "handle": "@DRMMYS"}]
 	},
 	"Western": {
 		"gm": "@Gmwrly",

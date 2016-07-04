@@ -1,15 +1,17 @@
-var CACHE_NAME = 'railTweet-1';
+var CACHE_NAME = 'railTweet-4';
 var urlsToCache = [
     '/',
     '/index.html',
     '/static/contact.html',
+    '/static/about.html',
     '/static/assets/css/bootstrap.min.css',
+    '/static/assets/css/sticky-footer-navbar.css',
+    '/static/assets/images/chrome-touch-icon-192x192.png',
+    '/static/assets/images/chrome-touch-icon-384x384.png',
     '/static/assets/js/jquery.min.js',
     '/static/assets/js/typeahead.bundle.min.js',
     '/static/assets/js/bootstrap.min.js',
-    '/static/assets/js/common.js',
-    '/static/assets/js/underscore-min.js',
-    '/static/assets/images/banned.png',
+    '/static/assets/js/common-min.js',
     '/static/assets/manifest.json'
 ];
 
@@ -91,6 +93,7 @@ self.addEventListener('fetch', function (event) {
 self.addEventListener('activate', function (event) {
     console.log('WORKER: activate');
     var cacheWhitelist = [CACHE_NAME];
+    event.waitUntil(self.clients.claim());
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
